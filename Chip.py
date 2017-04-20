@@ -17,32 +17,6 @@ class Chip:
         pass
 
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class XORChip(Chip):
 
     wire_1 = Wire()
@@ -61,7 +35,8 @@ class XORChip(Chip):
 
     def name(self):
         print(self.chip_id)
-=======
+
+
 class ANDChip(Chip):
     in_wire_1= Wire()
     in_wire_2= Wire()
@@ -82,4 +57,4 @@ class ANDChip(Chip):
 
     def name(self):
         print("Chip ID: "+self.chip_id)
->>>>>>> refs/remotes/origin/master
+
