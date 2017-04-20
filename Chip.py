@@ -17,6 +17,31 @@ class Chip:
         pass
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class XORChip(Chip):
 
     wire_1 = Wire()
