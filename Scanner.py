@@ -3,13 +3,16 @@
 class Scanner:
    # Initialize variables and open files
    def __init__(self, fileName):
-      self,instList = []
+      self.instList = []
       self.inFile = fileName
-      self.fin = fopen(infile, "r")
+      self.fin = open(self.inFile, "r")
 
-   def fetchInstructions():
+   def fetchInstructions(self):
       for line in self.fin:
-         strTokens = line.split()
-         print(strTokens[1], strTokens[2]
+         instruction,operands = line.split()
+         instDst,instSrc = operands.split(",")
+         convertHex()
+      self.fin.close()
 
-      fclose(fin)
+   def comvertHex(self)
+      print "..."
