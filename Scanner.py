@@ -9,10 +9,5 @@ class Scanner:
 
    def fetchInstructions(self):
       for line in self.fin:
-         instruction,operands = line.split()
-         instDst,instSrc = operands.split(",")
-         convertHex()
+         hexInstructions = line.split()
       self.fin.close()
-
-   def comvertHex(self)
-      print "..."
