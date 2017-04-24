@@ -1,0 +1,67 @@
+//This file will test all of the add and subtract commands
+
+//First populate the registers with some values
+//Mov R0 $5		- Move value 5 to R0
+81 00 05
+//Mov R1 $3		- Move value 3 to R1
+81 01 03
+//Mov R2 $1		- Move value 1 to R2
+81 02 01
+//Mov R3 $0		- Move value 0 to R3
+81 03 00
+//Values of registers are the folowing
+//R0 - 5   R1 - 3   R2 - 1   R3 - 0
+//We will also fill out some MEM locations for instructions to test
+//Mov [$5000] R1 	- Move value 3 from R1 to MEM 5000
+83 50 00 01
+//Mov [$6000] R2	- Move value 1 from R2 to MEM 6000
+83 60 00 02
+
+//Now to actually do some adds
+//Addc R0 R1		- R0 = 5 + 3
+10 00 01
+//Addc R2 R3		- R2 = 1 + 0
+10 02 03
+//Addc R3 $7		- R3 = 0 + 7
+11 03 07
+//Addc R1 $1		- R1 = 3 + 1
+11 01 01
+//Addc R3 [$5000]	- R3 = 4 + 3
+12 03 50 00
+//Addc R2 [$6000]	- R2 = 1 + 1
+12 02 60 00
+//Addc [$5000] R0	- MEM 5000 = 3 + 8
+13 50 00 00
+//Addc [$6000] R1	- MEM 6000 = 1 + 4
+13 60 00 01
+//Values of the registers and MEM are the following
+//R0 - 8   R1 - 4   R2 - 2   R3 - 7
+//MEM 5000 - B   MEM 6000 - 5
+
+//Now to do some subtracts
+//Subb R0 R2		- R0 = 8 - 2
+20 00 02
+//Subb R3 R1		- R3 = 7 - 4
+20 03 01
+//Subb R0 [$6000]	- R1 = 6 - 5
+21 00 60 00
+//Subb [$5000] R2	- MEM 5000 = B - 2
+23 50 00 02
+//Values of registers and MEM are the following
+//R0 - 6   R1 - 1   R2 - 2   R3 - 3
+//MEM 5000 - 9   MEM 6000 - 5
+
+//Compares here
+//So with these I think it just sets a bunch of the flags, and I really don't want to figure
+//Out which flags should be being set right now. I'm going to run a bunch of compares to
+//At least make sure this won't crash. I believe this command subtracts? so I'll run at least
+//One overflow, since I can do that one
+
+//Cmp R1 R0		- This one should set overflow I think? The rest of them are arbitrary
+30 01 00
+//Cmp R0 $3		- Cmp 6 3
+31 00 03
+//Cmp R1 [$6000]	- Cmp 1 5
+32 01 60 00
+//Cmp [$5000] R2	- Cmp 9 2
+33 50 00 02
