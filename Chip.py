@@ -23,19 +23,12 @@ class Chip:
 
 class REGISTERChip(Chip):
 
-    wire_1 = Wire()
-    cs_wire = Wire()
-    clock_wire = Wire()
-    output_wire = Wire()
-    chip_id = ""
-
     def __init__(self, wire_1, cs_wire, clock_wire, chip_id):
         self.wire_1 = wire_1
         self.cs_wire = cs_wire
         self.clock_wire= clock_wire
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
-
 
     def Action(self):
         self.output_wire.set_value()
@@ -54,16 +47,12 @@ class REGISTERChip(Chip):
 
 class XORChip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    output_wire = Wire()
-    chip_id = ""
-
     #sets the values of the wires to the input and names the output wire
+
     def __init__(self, wire_1, wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
 
     #xors values using '^' and sets output wires value
@@ -85,17 +74,13 @@ class XORChip(Chip):
 
 class ANDChip(Chip):
 
-    in_wire_1= Wire()
-    in_wire_2= Wire()
-    out_wire= Wire()
-    chip_id= ""
-
     # sets the values of the wires to the input and names the output wire
+
     def __init__(self, wire_1, wire_2, chip_id):
         self.in_wire_1=wire_1
         self.in_wire_2=wire_2
-        self.out_wire= Wire(chip_id+"_out_wire")
-        self.chip_id=chip_id
+        self.out_wire= Wire.Wire(chip_id+"_out_wire")
+        self.chip_id = chip_id
 
     # ands values using '&' and sets output wires value
     def Action(self):
@@ -118,14 +103,11 @@ class ANDChip(Chip):
 
 class NOTChip(Chip):
 
-    wire_1 = Wire()
-    output_wire = Wire()
-    chip_id = ""
-
     # sets the values of the wires to the input and names the output wire
+
     def __init__(self, wire_1, chip_id):
         self.wire_1 = wire_1
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
 
     # nots value using '~' and sets output wires value
@@ -147,16 +129,13 @@ class NOTChip(Chip):
 
 class ORChip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    output_wire = Wire()
-    chip_id = ""
 
     # sets the values of the wires to the input and names the output wire
+
     def __init__(self, wire_1, wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
 
     # ors values using '|' and sets output wires value
@@ -177,19 +156,15 @@ class ORChip(Chip):
 
 class MUX2to1Chip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    select = 0
-    chip_id = ""
-    output_wire = Wire()
-
     # sets the values of the wires to the input and names the output wire
+
+
     def __init__(self, wire_1, wire_2, select_wire_1, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
         self.select = select_wire_1.get_value()
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
 
     # use the select variable to determine the output value from the input wires
     def Action(self):
@@ -212,23 +187,17 @@ class MUX2to1Chip(Chip):
 
 class MUX4to1Chip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    wire_3 = Wire()
-    wire_4 = Wire()
-    select = 0
-    chip_id = ""
-    output_wire = Wire()
 
     # sets the values of the wires to the input and names the output wire
+
     def __init__(self, wire_1, wire_2, wire_3, wire_4, select_wire_1, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
         self.wire_3 = wire_3
         self.wire_4 = wire_4
         self.select = select_wire_1.get_value()
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
 
     # use the select variable to determine the output value from the input wires
     def Action(self):
@@ -254,17 +223,6 @@ class MUX4to1Chip(Chip):
 
 
 class MUX8to1Chip(Chip):
-    wire_1 = Wire()
-    wire_2 = Wire()
-    wire_3 = Wire()
-    wire_4 = Wire()
-    wire_5 = Wire()
-    wire_6 = Wire()
-    wire_7 = Wire()
-    wire_8 = Wire()
-    select = 0
-    chip_id = ""
-    output_wire = Wire()
 
     # sets the values of the wires to the input and names the output wire
     def __init__(self, wire_1, wire_2, wire_3, wire_4, wire_5, wire_6, wire_7, wire_8, select_wire_1, chip_id):
@@ -277,8 +235,9 @@ class MUX8to1Chip(Chip):
         self.wire_7 = wire_7
         self.wire_8 = wire_8
         self.select = select_wire_1.get_value()
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+
 
     # use the select variable to determine the output value from the input wires
     def Action(self):
@@ -303,27 +262,105 @@ class MUX8to1Chip(Chip):
     def name(self):
         print(self.chip_id)
 
-
 ###############################################################
-#
+#Inputs: 2 input wires, 2 enable wires, 2 Select wires
+
+#Function: Sets input wire's value to output wires value based on Select wires.
+#Assumptions: Select Wires must be a value between 0 and 3
+#As it stands, Select_2 can be enabled when select_1 isnt, and it will work
+#as intended. I dont think this is how it works in Ortiz's system but it shouldnt cause any problems
+#Since we are using short's and not bits, it is possible for the two select wires
+#to choose the same register, this will error out if attempted.
 ###############################################################
 
 
-class DEMUXChip(Chip):
+class DEMUX2to4Chip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    chip_id = ""
-    output_wire = Wire()
-
-    def __init__(self, wire_1, wire_2, chip_id):
+    def __init__(self, wire_1, wire_2, enable_wire_1, enable_wire_2, select_wire_1, select_wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
+        self.enable_wire_1 = enable_wire_1
+        self.enable_wire_2 = enable_wire_2
+        self.select_wire_1 = select_wire_1  #Select wires should be a number from 0 to 3, representing the 4 register options
+        self.select_wire_2 = select_wire_2
+        self.output_wire_0 = Wire.Wire(self.chip_id + "_OUT_WIRE_0")
+        self.output_wire_1 = Wire.Wire(self.chip_id + "_OUT_WIRE_1")
+        self.output_wire_2 = Wire.Wire(self.chip_id + "_OUT_WIRE_2")
+        self.output_wire_3 = Wire.Wire(self.chip_id + "_OUT_WIRE_3")
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
 
+    #DEMUX2to4's action determines which input to read from based on the enable wires, then send the input to the corresponding
+    #register.
+    #Example: A demux with enable_wire_1 ON and enable_wire_2 ON will read from selects 1 and 2. Selects 1 and 2 should be selecting different
+    #registers otherwise it will error out. Assuming Selects 1 and 2 are different registers between 0 and 3, inputs 1 and 2 are passed to the
+    #respective registers
     def Action(self):
-        self.output_wire.set_value()
+        if self.enable_wire_1.get_value() == 0 and self.enable_wire_2.get_value() == 0 :
+            print("No Demux Action, both enable wires disabled")
+
+        #If only enable wire 1 is enabled, pass the values to register 0-3 based on the select wire 1
+        elif self.enable_wire_1.get_value() == 1 and self.enable_wire_2.get_value() == 0 :
+            select= self.select_wire_1.get_value()
+            if select == 0 :
+                self.output_wire_0.set_value(self.wire_1.get_value())
+            elif select == 1 :
+                self.output_wire_1.set_value(self.wire_1.get_value())
+            elif select == 2:
+                self.output_wire_2.set_value(self.wire_1.get_value())
+            elif select == 3:
+                self.output_wire_3.set_value(self.wire_1.get_value())
+            else:
+                print("Error, select wire must hold a value between 0 and 3")
+                return
+        # I dont believe there should be a situation where sel_1 is off and sel_2 is on, but just in case
+        #it will be supported, needs to be discussed.
+        elif self.enable_wire_1.get_value() == 0 and self.enable_wire_2.get_value() == 1:
+            select = self.select_wire_1.get_value()
+            if select == 0:
+                self.output_wire_0.set_value(self.wire_2.get_value())
+            elif select == 1:
+                self.output_wire_1.set_value(self.wire_2.get_value())
+            elif select == 2:
+                self.output_wire_2.set_value(self.wire_2.get_value())
+            elif select == 3:
+                self.output_wire_3.set_value(self.wire_2.get_value())
+            else:
+                print("Error, select wire must hold a value between 0 and 3")
+                return
+        #
+        elif self.enable_wire_1.get_value() == 1 and self.enable_wire_2.get_value() == 1:
+            select_1 = self.select_wire_1.get_value()
+            select_2 = self.select_wire_2.get_value()
+            if select_1 == select_2:
+                print("Error in DEMUX, both select wires have selected the same register")
+                return
+
+            #Pass input 1 to the register chosen by select 1
+            if select_1 == 0:
+                self.output_wire_0.set_value(self.wire_1.get_value())
+            elif select_1 == 1:
+                self.output_wire_1.set_value(self.wire_1.get_value())
+            elif select_1 == 2:
+                self.output_wire_2.set_value(self.wire_1.get_value())
+            elif select_1== 3:
+                self.output_wire_3.set_value(self.wire_1.get_value())
+            else:
+                print("Error, select wire must hold a value between 0 and 3")
+                return
+
+            # Pass input 2 to the register chosen by select 2
+            if select_2 == 0:
+                self.output_wire_0.set_value(self.wire_2.get_value())
+            elif select_2 == 1:
+                self.output_wire_1.set_value(self.wire_2.get_value())
+            elif select_2 == 2:
+                self.output_wire_2.set_value(self.wire_2.get_value())
+            elif select_2 == 3:
+                self.output_wire_3.set_value(self.wire_2.get_value())
+            else:
+                print("Error, select wire must hold a value between 0 and 3")
+                return
+
 
     # prints the name of the chip id for testing
     def name(self):
@@ -336,23 +373,16 @@ class DEMUXChip(Chip):
 
 class ADDSUBChip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    cin_wire_1=Wire()
-    v_output_wire = Wire()
-    c_output_wire = Wire()
-    chip_id = ""
-
     def __init__(self, wire_1, wire_2, cin_wire_1, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
-        self.cin_wire_1=cin_wire_1;
-        self.v_output_wire = Wire(self.chip_id + "_V_OUT_WIRE")
-        self.c_output_wire = Wire(self.chip_id + "_C_OUT_WIRE")
+        self.cin_wire_1=cin_wire_1
+        self.v_output_wire = Wire.Wire(self.chip_id + "_V_OUT_WIRE")
+        self.c_output_wire = Wire.Wire(self.chip_id + "_C_OUT_WIRE")
         self.chip_id = chip_id
 
     def Action(self):
-        self.output_wire.set_value()
+        self.v_output_wire.set_value()
 
     # prints the name of the chip id for testing
     def name(self):
@@ -365,16 +395,11 @@ class ADDSUBChip(Chip):
 
 class DECODERChip(Chip):
 
-    wire_1 = Wire()
-    wire_2 = Wire()
-    chip_id = ""
-    output_wire = Wire()
-
     def __init__(self, wire_1, wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
 
     def Action(self):
         self.output_wire.set_value()
@@ -390,27 +415,18 @@ class DECODERChip(Chip):
 
 class FLAGSChip(Chip):
 
-    wire_1 = Wire()
-    cs_wire = Wire()
-    clock_wire = Wire()
-    z_output_wire = Wire()
-    v_output_wire = Wire()
-    n_output_wire = Wire()
-    c_output_wire = Wire()
-    chip_id = ""
-
     def __init__(self, wire_1, cs_wire, clock_wire,  chip_id):
         self.wire_1 = wire_1
         self.cs_wire=cs_wire
         self.clock_wire=clock_wire
-        self.z_output_wire = Wire(self.chip_id + "_Z_OUT_WIRE")
-        self.v_output_wire = Wire(self.chip_id + "_V_OUT_WIRE")
-        self.n_output_wire = Wire(self.chip_id + "_N_OUT_WIRE")
-        self.c_output_wire = Wire(self.chip_id + "_C_OUT_WIRE")
+        self.z_output_wire = Wire.Wire(self.chip_id + "_Z_OUT_WIRE")
+        self.v_output_wire = Wire.Wire(self.chip_id + "_V_OUT_WIRE")
+        self.n_output_wire = Wire.Wire(self.chip_id + "_N_OUT_WIRE")
+        self.c_output_wire = Wire.Wire(self.chip_id + "_C_OUT_WIRE")
         self.chip_id = chip_id
 
     def Action(self):
-        self.output_wire.set_value()
+        self.z_output_wire.set_value()
 
     # prints the name of the chip id for testing
     def name(self):

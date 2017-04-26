@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 WRITE = 1
 READ = 0
@@ -11,11 +12,11 @@ class Chip:
       self.name =name;
 #rdOrwr: 0 for read and 1 for write
   def read8bit(self,address,data):
-    print("read data at chip: ",self.name," address ", address,".");
+    print("read data at chip: ",self.name," address [$", address,"] = $", self.data[address],".");
     return self.data[address]
 
   def write8bit(self,address,data):
-    print("Write ",data," to chip: ",self.name," address ", address,".");
+    print("Write $",data," to chip: ",self.name," address [$", address,"].");
     self.data[address] =  data
 ###############################################################
 #Memory class will work as a real memory that will store      #
@@ -51,6 +52,6 @@ class Memory:
         return None
     else:
       raise Exception('the address is overflow')
-temp = Memory();
-temp.memoryOp(5000,300,WRITE);
-print(temp.memoryOp(5000,300,READ));
+#temp = Memory();
+#temp.memoryOp(5000,300,WRITE);
+#print(temp.memoryOp(5000,300,READ));
