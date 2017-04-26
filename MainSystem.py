@@ -79,19 +79,19 @@ class MainSystem:
         # Name: Select_Register_A_MUX
         # Inputs: { W_0_010_0, W_0_011_0, W_0_012_0, W_0_013_0, W_3_100_0, W_0_110_0, W_0_500_2 }
         # Control: { W_1_112_9 }
-        # Outputs: W_1_112_0
+        # Outputs: { W_1_112_0 }
 
         # Type: Multiplexer
         # ID: U_1_113
         # Name: Select_Register_B_MUX
         # Inputs: { W_0_010_0, W_0_011_0, W_0_012_0, W_0_013_0, W_3_100_0, W_0_110_0, W_0_500_2 }
         # Control: { W_1_113_9 }
-        # Outputs: W_1_113_0 // This and W_1_112_0 make up the DATA line
+        # Outputs: { W_1_113_0 } // This and W_1_112_0 make up the DATA line
 
         # Type: Adder / Subtractor
         # ID: U_1_107
         # Name: Stack_Adder_Subtractor
-        # Inputs: { W_0_014_0, (LITTERAL VALUE 2) }
+        # Inputs: { W_0_014_0, (LITERAL VALUE 2) }
         # Control: { W_1_107_9 }
         # Outputs: { W_1_107_0 }
 
@@ -118,7 +118,7 @@ class MainSystem:
         # Type: AND
         # ID: U_2_101
         # Name: ALU_AND
-        # Inputs: { W_1_112_0, W_1_113_0 }
+        # Inputs:  { W_1_112_0, W_1_113_0 }
         # Control: {  }
         # Outputs: { W_2_101_0 }
 
@@ -153,7 +153,7 @@ class MainSystem:
         # Type: Multiplexer
         # ID: U_2_116
         # Name: Memory_Addr_MUX
-        # Inputs: { W_0_015_0, W_0_014_0, W_0_500_2, DATA }
+        # Inputs:  { W_0_015_0, W_0_014_0, W_0_500_2, DATA }
         # Control: { W_2_116_9 }
         # Outputs: { W_2_116_0 }  // MEM ADDR LINE
 
@@ -183,24 +183,24 @@ class MainSystem:
         # Control: { W_3_115_9 }
         # Outputs: { W_3_115_0 } // INPUT FOR U_015
 
-        # Type: Multiplexer
-        # ID: U_3_119
-        # Name: Select_ALU_MUX
-        # Inputs:  { ALU, DATA, INST } // Fill these out later
-        # Control: { W_3_115_9 }
-        # Outputs: { W_3_119_0 } input to RAM
-
-        # Type: RAM
-        # ID: U_3_100
-        # Name: RAM_Chip
-        # Inputs:  { W_2_116_0, W_3_119_0 }
-        # Control: { W_3_100_9 } // Read/Write
-        # Outputs: { W_3_100_0 } // This is the MEM line
-
         return
 
     @classmethod
     def construct_stage_4_chips(self):
+
+        # Type: Multiplexer
+        # ID: U_3_119
+        # Name: Select_MEM_MUX
+        # Inputs:  { W_3_111_0, W_1_112_0, W_0_500_2 } // Fill these out later
+        # Control: { W_3_115_9 }
+        # Outputs: { W_3_119_0 } input to RAM
+
+        # Type: RAM
+        # ID: U_4_100
+        # Name: RAM_Chip                    // This and the Select_MEM_MUX are technically different stages but we treat them the same
+        # Inputs:  { W_2_116_0, W_3_119_0 }
+        # Control: { W_4_100_9 }            // Read/Write
+        # Outputs: { W_3_100_0 }            // This is the MEM line
 
         # Type: Multiplexer
         # ID: U_4_120
@@ -208,6 +208,52 @@ class MainSystem:
         # Inputs:  { W_2_100_1, W_3_111_0 }
         # Control: { W_4_111_9 }
         # Outputs: { W_4_120_0 }
+
+        return
+
+    @classmethod
+    def construct_stage_5_chips(self):
+
+        # Type: Multiplexer
+        # ID: U_4_118A
+        # Name: Select_Register_A_Input_MUX
+        # Inputs:  { W_1_112_0, W_0_014_0, W_0_500_2, W_3_111_0, RES, W_3_100_0, RES, RES }
+        # Control: { W_4_118A_9, W_0_014_1 }
+        # Outputs: { W_4_118A_0 }
+
+        # Type: Multiplexer
+        # ID: U_4_118B
+        # Name: Select_Register_B_Input_MUX
+        # Inputs:  { W_1_113_0, W_0_014_0, W_0_500_2, W_3_111_0, RES, W_3_100_0, RES, RES }
+        # Control: { W_4_118B_9 }
+        # Outputs: { W_4_118B_0 }
+
+        return
+
+    @classmethod
+    def construct_stage_6_chips(self):
+
+        # Type: Demultiplexer
+        # ID: U_4_114A
+        # Name: Select_Register_A_Input_MUX
+        # Inputs:  { W_5_118A_0 }
+        # Control: { W_6_114A_9, OE_A }
+        # Outputs: { W_6_114A_0 } // These outputs go into the registers
+
+        # Type: Demultiplexer
+        # ID: U_4_114B
+        # Name: Select_Register_B_Input_MUX
+        # Inputs:  { W_5_118B_0 }
+        # Control: { W_6_114B_9, OE_B }
+        # Outputs: { W_6_114B_0 } // These outputs go into the registers
+
+        return
+
+    @classmethod
+    def final_stage(self):
+
+        # Hook up all register inputs
+
 
         return
 
@@ -223,3 +269,8 @@ class MainSystem:
 
         self.construct_stage_4_chips()
 
+        self.construct_stage_5_chips()
+
+        self.construct_stage_6_chips()
+
+        self.final_stage()
