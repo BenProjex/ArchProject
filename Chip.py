@@ -152,7 +152,6 @@ class MUX2to1Chip(Chip):
     chip_id = ""
     output_wire = Wire()
 
-    def __init__(self, wire_1, wire_2, chip_id):
     def __init__(self, wire_1, wire_2, select_wire_1, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
