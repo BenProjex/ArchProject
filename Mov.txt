@@ -1,0 +1,39 @@
+//This file will test all of the Mov commands required
+
+//First test getting static values into registers
+//Mov R0 $01		- Move value 1 into register 0
+81 00 01
+//Mov R1 $02		- Move value 2 into register 1
+81 01 02
+//Mov R2 $03		- Move value 3 into register 2
+81 02 03
+//Move R3 $04		- Move value 4 into register 3
+81 03 04
+//Now each register should have a value 1 more than its register number stored
+//Second test moving one register into another
+//Mov R2 R1 		- Move value 2 from R1 to R2
+80 02 01
+//Mov R2 R3		- Move value 4 from R3 to R2
+80 02 03
+//Mov R3 R0		- Move value 1 from R0 to R3
+80 03 00
+//The registers should now be the following
+//R0 - 1   R1 - 2   R2 - 4   R3 - 1
+//Now let's move some registers to memory
+//Mov [$5004] R0	- Move value 1 from R0 to Mem 5004
+83 50 00 00
+//Mov [$5005] R1	- Move value 2 from R1 to Mem 5005
+83 50 01 01
+//Mov [$6000] R3 	- Move value 1 from R3 to Mem 6000
+83 60 00 03
+//The locations specified should have accurate values stored to them, and the
+//registers should have the same values
+//Now we'll load in some values from memory
+//Mov R1 [$5004]	- Move value 1 from Mem 5004 to R1
+82 01 50 04
+//Mov R0 [$5005]	- Move value 2 from Mem 5005 to R0
+82 00 50 05
+//Mov R2 [$6000]	- Move value 1 from Mem 6000 to R2
+82 02 60 00
+//The registers should now be the following
+//R0 - 2   R1 - 1   R2 - 1   R3 - 1

@@ -6,14 +6,17 @@ READ = 0
 ###########################################################
 class Chip:
   
-  def __init__(self):
+  def __init__(self,name):
       self.data = [0]*(2**12)
+      self.name =name;
 #rdOrwr: 0 for read and 1 for write
-  def read8bit(seft,address,data):
-    return seft.data[address]
+  def read8bit(self,address,data):
+    print("read data at chip: ",self.name," address ", address,".");
+    return self.data[address]
 
-  def write8bit(seft,address,data):
-    seft.data[address] =  data
+  def write8bit(self,address,data):
+    print("Write ",data," to chip: ",self.name," address ", address,".");
+    self.data[address] =  data
 ###############################################################
 #Memory class will work as a real memory that will store      #
 #instruction pointer and data.                                #
@@ -33,17 +36,21 @@ class Chip:
 ################################################################
 class Memory:
 
-  def __init__(seft):
-    seft.chip = [Chip() for i in range(15)]
-  def memoryOp(seft,address,data,rdOrwr):
+  def __init__(self):
+    self.chip = [Chip("U" + str(200+i)) for i in range(15)]
+    
+  def memoryOp(self,address,data,rdOrwr):
     if(address<=65535):
       chipselect = address >> 12
       chipaddr = address & 4095 
       if rdOrwr == WRITE:
-        seft.chip[chipselect].write8bit(chipaddr,data)
+        self.chip[chipselect].write8bit(chipaddr,data)
       elif rdOrwr == READ:
-        return seft.chip[chipselect].read8bit(chipaddr,data)
+        return self.chip[chipselect].read8bit(chipaddr,data)
       else:
         return None
     else:
       raise Exception('the address is overflow')
+temp = Memory();
+temp.memoryOp(5000,300,WRITE);
+print(temp.memoryOp(5000,300,READ));
