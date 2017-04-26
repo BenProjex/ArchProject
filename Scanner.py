@@ -2,15 +2,18 @@
 
 class Scanner:
    # Initialize variables and open files
-   def __init__(self, fileName, fOutName):
+   def __init__(self, fileName):
       self.instList = []
       self.inFile = fileName
       self.fin = open(self.inFile, "r")
-      self.outFile = fOutName
-      self.fout = open(self.outFile, "w")
 
    def fetchInstructions(self):
       for line in self.fin:
          hexInstructions = line.split()
-         self.out.write(hexInstructions)
+         for byte in hexInstructions:
+            self.instList.append(int(byte, 16))
       self.fin.close()
+   
+   def writeEPROM(epromChip):
+      for i in range(len(epromChip.data)):
+         epromChip.data[i] = self.instList
