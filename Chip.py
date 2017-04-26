@@ -19,18 +19,23 @@ class Chip:
 ###############################################################
 #
 ###############################################################
+
+
 class REGISTERChip(Chip):
 
     wire_1 = Wire()
-    wire_2 = Wire()
-    chip_id = ""
+    cs_wire = Wire()
+    clock_wire = Wire()
     output_wire = Wire()
+    chip_id = ""
 
-    def __init__(self, wire_1, wire_2, chip_id):
+    def __init__(self, wire_1, cs_wire, clock_wire, chip_id):
         self.wire_1 = wire_1
-        self.wire_2 = wire_2
-        self.chip_id = chip_id
+        self.cs_wire = cs_wire
+        self.clock_wire= clock_wire
         self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.chip_id = chip_id
+
 
     def Action(self):
         self.output_wire.set_value()
@@ -41,18 +46,20 @@ class REGISTERChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class XORChip(Chip):
 
     wire_1 = Wire()
     wire_2 = Wire()
-    chip_id = ""
     output_wire = Wire()
+    chip_id = ""
 
     def __init__(self, wire_1, wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
-        self.chip_id = chip_id
         self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.chip_id = chip_id
 
     def Action(self):
         self.output_wire.set_value((self.wire_1.get_value() ^ self.wire_2.get_value()))
@@ -63,17 +70,20 @@ class XORChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class ANDChip(Chip):
+
     in_wire_1= Wire()
     in_wire_2= Wire()
-    chip_id= ""
     out_wire= Wire()
+    chip_id= ""
 
     def __init__(self, wire_1, wire_2, chip_id):
         self.in_wire_1=wire_1
         self.in_wire_2=wire_2
-        self.chip_id
         self.out_wire= Wire(chip_id+"_out_wire")
+        self.chip_id
 
     def Action(self):
         val_1 = self.in_wire_1.get_value()
@@ -86,16 +96,18 @@ class ANDChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class NOTChip(Chip):
 
     wire_1 = Wire()
-    chip_id = ""
     output_wire = Wire()
+    chip_id = ""
 
     def __init__(self, wire_1, chip_id):
         self.wire_1 = wire_1
-        self.chip_id = chip_id
         self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.chip_id = chip_id
 
     def Action(self):
         self.output_wire.set_value(~ self.wire_1.get_value())
@@ -106,18 +118,20 @@ class NOTChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class ORChip(Chip):
 
     wire_1 = Wire()
     wire_2 = Wire()
-    chip_id = ""
     output_wire = Wire()
+    chip_id = ""
 
     def __init__(self, wire_1, wire_2, chip_id):
         self.wire_1 = wire_1
         self.wire_2 = wire_2
-        self.chip_id = chip_id
         self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
+        self.chip_id = chip_id
 
     def Action(self):
         self.output_wire.set_value((self.wire_1.get_value() | self.wire_2.get_value()))
@@ -128,6 +142,8 @@ class ORChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class MUXChip(Chip):
 
     wire_1 = Wire()
@@ -150,6 +166,8 @@ class MUXChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class DEMUXChip(Chip):
 
     wire_1 = Wire()
@@ -172,7 +190,37 @@ class DEMUXChip(Chip):
 ###############################################################
 #
 ###############################################################
+
+
 class ADDSUBChip(Chip):
+
+    wire_1 = Wire()
+    wire_2 = Wire()
+    cin_wire_1=Wire()
+    v_output_wire = Wire()
+    c_output_wire = Wire()
+    chip_id = ""
+
+    def __init__(self, wire_1, wire_2, cin_wire_1, chip_id):
+        self.wire_1 = wire_1
+        self.wire_2 = wire_2
+        self.cin_wire_1=cin_wire_1;
+        self.v_output_wire = Wire(self.chip_id + "_V_OUT_WIRE")
+        self.c_output_wire = Wire(self.chip_id + "_C_OUT_WIRE")
+        self.chip_id = chip_id
+
+    def Action(self):
+        self.output_wire.set_value()
+
+    def name(self):
+        print(self.chip_id)
+        
+###############################################################
+#
+###############################################################
+
+
+class DECODERChip(Chip):
 
     wire_1 = Wire()
     wire_2 = Wire()
@@ -190,22 +238,32 @@ class ADDSUBChip(Chip):
 
     def name(self):
         print(self.chip_id)
-        
+
 ###############################################################
 #
 ###############################################################
-class DECODERChip(Chip):
+
+
+class FLAGSChip(Chip):
 
     wire_1 = Wire()
-    wire_2 = Wire()
+    cs_wire = Wire()
+    clock_wire = Wire()
+    z_output_wire = Wire()
+    v_output_wire = Wire()
+    n_output_wire = Wire()
+    c_output_wire = Wire()
     chip_id = ""
-    output_wire = Wire()
 
-    def __init__(self, wire_1, wire_2, chip_id):
+    def __init__(self, wire_1, cs_wire, clock_wire,  chip_id):
         self.wire_1 = wire_1
-        self.wire_2 = wire_2
+        self.cs_wire=cs_wire
+        self.clock_wire=clock_wire
+        self.z_output_wire = Wire(self.chip_id + "_Z_OUT_WIRE")
+        self.v_output_wire = Wire(self.chip_id + "_V_OUT_WIRE")
+        self.n_output_wire = Wire(self.chip_id + "_N_OUT_WIRE")
+        self.c_output_wire = Wire(self.chip_id + "_C_OUT_WIRE")
         self.chip_id = chip_id
-        self.output_wire = Wire(self.chip_id + "_OUT_WIRE")
 
     def Action(self):
         self.output_wire.set_value()
