@@ -35,14 +35,22 @@ class REGISTERChip(Chip):
         self.clock_wire= clock_wire
         self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
+        self.register_value=None
 
     #At the moment, Registers simply set their input to their output
     def Action(self):
-            self.output_wire.set_value(self.wire_1.get_value())
-
+        if self.cs_wire.get_value()==0: #If the chip is not selected, do nothing
+            return
+        if self.clock_wire.get_value() == 1: #If the chip is selected and the clock is high, update value from input and update output
+            self.register_value=self.wire_1.get_value()
+            self.output_wire.set_value(self.register_value)
+        else:                                #Regardless of the chip being selected, if the clock is low, do nothing.
+            return
     def name(self):
         print(self.chip_id)
 
+    def get_value(self):
+        return self.register_value
 ##########################XORChip##############################
 #  Inputs: two input wires and a chip id
 #
@@ -385,25 +393,7 @@ class ADDSUBChip(Chip):
     # prints the name of the chip id for testing
     def name(self):
         print(self.chip_id)
-        
-########################DECODERChip#############################
-#
-###############################################################
 
-class DECODERChip(Chip):
-
-    def __init__(self, wire_1, wire_2, chip_id):
-        self.wire_1 = wire_1
-        self.wire_2 = wire_2
-        self.chip_id = chip_id
-        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
-
-    def Action(self):
-        self.output_wire.set_value()
-
-    # prints the name of the chip id for testing
-    def name(self):
-        print(self.chip_id)
 
 ###########################FLAGSChip###########################
 #
