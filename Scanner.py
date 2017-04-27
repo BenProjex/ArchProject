@@ -14,6 +14,6 @@ class Scanner:
             self.instList.append(int(byte, 16))
       self.fin.close()
    
-   def writeEPROM(epromChip):
+   def writeEPROM(self, epromChip):
       for i in range(len(epromChip.data)):
          epromChip.data[i] = self.instList
