@@ -1,6 +1,11 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 import Wire
 
+###############################################################
+#                  Abstract Chip Class
+#AbstractMethod Action: What function the chip performs
+#AbstractProperty Name: Debugging tool retrieving the name of the chip
+###############################################################
 
 class Chip:
 
@@ -16,10 +21,11 @@ class Chip:
         # This will mostly be used for debugging
         pass
 
-###############################################################
+#####################REGISTERChip##############################
+#Input: 1 Input wire, 1 Chip Select Wire, 1 Clock Wire
 #
+#Function:
 ###############################################################
-
 
 class REGISTERChip(Chip):
 
@@ -29,21 +35,29 @@ class REGISTERChip(Chip):
         self.clock_wire= clock_wire
         self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
         self.chip_id = chip_id
+        self.register_value=None
 
+    #At the moment, Registers simply set their input to their output
     def Action(self):
-        self.output_wire.set_value()
-
+        if self.cs_wire.get_value()==0: #If the chip is not selected, do nothing
+            return
+        if self.clock_wire.get_value() == 1: #If the chip is selected and the clock is high, update value from input and update output
+            self.register_value=self.wire_1.get_value()
+            self.output_wire.set_value(self.register_value)
+        else:                                #Regardless of the chip being selected, if the clock is low, do nothing.
+            return
     def name(self):
         print(self.chip_id)
 
-###############################################################
+    def get_value(self):
+        return self.register_value
+##########################XORChip##############################
 #  Inputs: two input wires and a chip id
 #
 #  Function: XORs the values of the two wires and
 #  sets the value of the output wire to
 #  to that value.
 ###############################################################
-
 
 class XORChip(Chip):
 
@@ -63,14 +77,13 @@ class XORChip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+###########################ANDChip#############################
 #  Inputs: two input wires and a chip id
 #
 #  Function: ANDs the values of the two wires and
 #  sets the value of the output wire to
 #  to that value.
 ###############################################################
-
 
 class ANDChip(Chip):
 
@@ -92,14 +105,13 @@ class ANDChip(Chip):
     def name(self):
         print("Chip ID: "+self.chip_id)
 
-###############################################################
+#########################NOTChip###############################
 #  Inputs: one input wires and a chip id
 #
 #  Function: NOTs the value of the wire and
 #  sets the value of the output wire to
 #  to that value.
 ###############################################################
-
 
 class NOTChip(Chip):
 
@@ -118,14 +130,13 @@ class NOTChip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+##########################ORChip###############################
 #  Inputs: two input wires and a chip id
 #
 #  Function: ORs the values of the two wires and
 #  sets the value of the output wire to
 #  to that value.
 ###############################################################
-
 
 class ORChip(Chip):
 
@@ -146,13 +157,12 @@ class ORChip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+#####################MUX2to1Chip###############################
 #  Inputs: two input wires, select wire and a chip id
 #
 #  Function: set the value of the output wire to the
 #  correct input wire determined by the select wire
 ###############################################################
-
 
 class MUX2to1Chip(Chip):
 
@@ -177,13 +187,12 @@ class MUX2to1Chip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+###################MUX4to1Chip##################################
 #  Inputs: four input wires, select wire and a chip id
 #
 #  Function: set the value of the output wire to the
 #  correct input wire determined by the select wire
 ###############################################################
-
 
 class MUX4to1Chip(Chip):
 
@@ -214,13 +223,12 @@ class MUX4to1Chip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+###########################MUX8to1Chip#########################
 #  Inputs: eight input wires, select wire and a chip id
 #
 #  Function: set the value of the output wire to the
 #  correct input wire determined by the select wire
 ###############################################################
-
 
 class MUX8to1Chip(Chip):
 
@@ -262,7 +270,7 @@ class MUX8to1Chip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+##########################DEMUX2to4Chip#########################
 #Inputs: 2 input wires, 2 enable wires, 2 Select wires
 
 #Function: Sets input wire's value to output wires value based on Select wires.
@@ -272,7 +280,6 @@ class MUX8to1Chip(Chip):
 #Since we are using short's and not bits, it is possible for the two select wires
 #to choose the same register, this will error out if attempted.
 ###############################################################
-
 
 class DEMUX2to4Chip(Chip):
 
@@ -366,10 +373,9 @@ class DEMUX2to4Chip(Chip):
     def name(self):
         print(self.chip_id)
 
-###############################################################
+##########################ADDSUBChip############################
 #
 ###############################################################
-
 
 class ADDSUBChip(Chip):
 
@@ -387,31 +393,11 @@ class ADDSUBChip(Chip):
     # prints the name of the chip id for testing
     def name(self):
         print(self.chip_id)
-        
-###############################################################
+
+
+###########################FLAGSChip###########################
 #
 ###############################################################
-
-
-class DECODERChip(Chip):
-
-    def __init__(self, wire_1, wire_2, chip_id):
-        self.wire_1 = wire_1
-        self.wire_2 = wire_2
-        self.chip_id = chip_id
-        self.output_wire = Wire.Wire(self.chip_id + "_OUT_WIRE")
-
-    def Action(self):
-        self.output_wire.set_value()
-
-    # prints the name of the chip id for testing
-    def name(self):
-        print(self.chip_id)
-
-###############################################################
-#
-###############################################################
-
 
 class FLAGSChip(Chip):
 
