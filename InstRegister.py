@@ -9,6 +9,7 @@ class InstRegister():
       self.Offset = Wire("Offset")
       self.Offset.set_value(0)
       self.Inst = Wire("Inst")
+      self.RW = Wire("RW")
       self.opCodes = []
       self.u14CS = Wire("u14_CS")
       self.u15CS = Wire("u15_CS")
@@ -65,12 +66,14 @@ class InstRegister():
             self.u114SelB.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(0)
             self.u114OEB.set_value(1)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x83):
             # Mov [$MMMM],RX
             fetchBytes(4)
             self.u113Sel.set_value(opCodes[1] / 0x10)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
             # to RAM
@@ -114,6 +117,7 @@ class InstRegister():
             self.u114SelA.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(1)
             self.u114OEB.set_value(0)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x13):
@@ -125,6 +129,7 @@ class InstRegister():
             self.u120Sel.set_value(0)
             self.u100CS.set_value(1)
             self.u111Sel.set_value(0)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
             # to RAM
@@ -168,6 +173,7 @@ class InstRegister():
             self.u114SelA.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(1)
             self.u114OEB.set_value(0)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x23):
@@ -179,6 +185,7 @@ class InstRegister():
             self.u120Sel.set_value(0)
             self.u100CS.set_value(1)
             self.u111Sel.set_value(0)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
             # to RAM
@@ -207,6 +214,7 @@ class InstRegister():
             self.u100Cin.set_value(1)
             self.u120Sel.set_value(0)
             self.u110CS.set_value(1)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x33):
@@ -217,6 +225,7 @@ class InstRegister():
             self.u100Cin.set_value(1)
             self.u120Sel.set_value(0)
             self.u110CS.set_value(1)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x40):
@@ -233,6 +242,7 @@ class InstRegister():
             fetchBytes(3)
             self.u113Sel.set_value(4)
             self.u111Sel.set_value(4)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
             # to RAM
@@ -271,6 +281,7 @@ class InstRegister():
             self.u114SelA.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(1)
             self.u114OEB.set_value(0)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x53):
@@ -279,6 +290,7 @@ class InstRegister():
             self.u112Sel.set_value(opCodes[1] / 0x10)
             self.u113Sel.set_value(4)
             self.u111Sel.set_value(1)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x60):
@@ -312,6 +324,7 @@ class InstRegister():
             self.u114SelA.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(1)
             self.u114OEB.set_value(0)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x63):
@@ -320,6 +333,7 @@ class InstRegister():
             self.u112Sel.set_value(opCodes[1] / 0x10)
             self.u113Sel.set_value(4)
             self.u111Sel.set_calue(2)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
             # to RAM
@@ -354,6 +368,7 @@ class InstRegister():
             self.u114SelA.set_value(opCodes[1] / 0x10)
             self.u114OEA.set_value(1)
             self.u114OEB.set_value(0)
+            self.RW.set_value(0)
             addr = ''.join(str(opCodes[2]) + str(opCodes[3]))
             self.Inst.set_value(int(addr, 16))
          elif(currentByte == 0x73):
@@ -362,6 +377,7 @@ class InstRegister():
             self.u112Sel.set_value(opCodes[1] / 0x10)
             self.u113Sel.set_value(4)
             self.u111Sel.set_value(3)
+            self.RW.set_value(1)
             addr = ''.join(str(opCodes[1]) + str(opCodes[2]))
             self.Inst.set_value(int(addr, 16))
 
