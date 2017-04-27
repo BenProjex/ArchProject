@@ -124,7 +124,10 @@ class NOTChip(Chip):
 
     # nots value using '~' and sets output wires value
     def Action(self):
-        self.output_wire.set_value(~ self.wire_1.get_value())
+        if self.wire_1.get_value()==0:
+            self.output_wire.set_value(255)
+        else:
+            self.output_wire.set_value(~ self.wire_1.get_value())
 
     # prints the name of the chip id for testing
     def name(self):
