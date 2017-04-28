@@ -5,35 +5,46 @@
 //The system is actually working
 
 //First populate the registers
-//Mov R0 $10		- Move 10 into R0
-81 00 10
-//Mov R1 $0		- Move 0 into R1
-81 01 15
+//Mov R0 $8		- Move 7F into R0
+81 00 8
+//Mov R1 $7F		- Move 7F into R1
+81 10 7F
 //Mov R2 $10		- Move 10 into R2
-81 02 10
+81 20 11
+
+//And R1 R2		- And 7F 10
+50 10 20
+
+//Or R0 R2		- Or 7F 10
+60 10 20
+
 //Mov R3 $7		- Move 7 into R3
-81 03 07
+81 30 07
+
+
+
 //Fill out some memory locations as well
 //Mov [$5000] R3	- Move 7 from R3 into MEM[$5000]
-83 50 00 03
+//83 50 00 30
 //Mov [$6000] R1	- Move 0 from R1 intin MEM[$6000]
+//83 60 00 10
 //Values in registers are the following
 //R0 - 10   R1 - 0   R2 - 10   R3 - 7
 //MEM 5000 - 7
 
 //Not statements
 //Not R0		- Not 10
-40 00
+//40 00
 //Not R1		- Not 0
-40 01
+//40 10
 //Not [$5000]		- Not 7
-43 50 00
+//43 50 00
 
 //And statements
 //And R0 R2		- And 10 10
-50 00 02
+50 00 20
 //And R1 $1		- And 0 1
-51 01 01
+51 01 10
 //And R3 [$5000]	- And 7 7
 52 03 50 00
 //And [$5000] R0	- And 7 10
@@ -41,20 +52,20 @@
 
 //Or statements
 //Or R0 R1		- Or 10 0
-60 00 01
+60 00 10
 //Or R2 $20		- Or R2 20
-61 02 20
+61 20 20
 //Or R1 [$6000]		- Or 0 0
-62 01 60 00
+62 10 60 00
 //Or [$5000] R0		- Or 7 10
 63 50 00 00
 
 //Xor statements
 //Xor R0 R1		- Xor 10 0
-70 00 01
+70 00 10
 //Xor R3 $FF		- Xor 7 256
 71 03 FF
 //Xor R1 [$6000]	- Xor 0 0
-72 01 60 00
+72 10 60 00
 //Xor [$5000] R3	- Xor 7 7
-73 50 00 03
+73 50 00 30

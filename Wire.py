@@ -13,7 +13,7 @@ class Wire:
         self.value = value
         if value > 255 or value < 0:
             self.value = 0
-            print("Wire overflow value: ", str(value))
+            print(self.wire_id, "Wire overflow value: ", str(value))
 
     def get_value(self):
         return self.value

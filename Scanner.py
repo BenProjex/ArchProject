@@ -9,6 +9,8 @@ class Scanner:
 
    def fetchInstructions(self):
       for line in self.fin:
+         if line[0] == '/':
+            continue;
          hexInstructions = line.split()
          for byte in hexInstructions:
             self.instList.append(int(byte, 16))
